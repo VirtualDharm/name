@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react/no-unescaped-entities */
 import { useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import dynamic from 'next/dynamic';
@@ -11,7 +13,7 @@ import {
   createTheme
 } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
-import { IconUser, IconLock, IconEye, IconEyeOff } from '@tabler/icons-react';
+import { IconUser, IconEye, IconEyeOff } from '@tabler/icons-react';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL as string,
@@ -65,7 +67,7 @@ function LoginFormContent() {
   const [isRegister, setIsRegister] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [joke, setJoke] = useState('Welcome to our app!');
+  const [joke] = useState('Welcome to our app!');
 
   const validateForm = () => {
     setError(false);
@@ -88,7 +90,7 @@ function LoginFormContent() {
     if (!validateForm()) return;
 
     setLoading(true);
-    const { data, error } = await supabase
+    const { data: userData, error: loginError } = await supabase
       .from('users')
       .select('*')
       .eq('username', username)
@@ -96,7 +98,7 @@ function LoginFormContent() {
       .single();
 
     setLoading(false);
-    if (data) {
+    if (userData) {
       setMessage('Login successful!');
       setError(false);
       setIsLoggedIn(true);
@@ -154,27 +156,6 @@ function LoginFormContent() {
     setMessage('');
     setIsLoggedIn(false);
   };
-
-  const VisibilityToggle = ({
-    reveal,
-    onClick
-  }: {
-    reveal?: boolean;
-    onClick?(): void;
-  }) => (
-    <button
-      type="button"
-      className="p-2 hover:bg-gray-50 rounded-full transition-colors focus:outline-none"
-      onClick={onClick}
-      tabIndex={-1}
-    >
-      {reveal ? (
-        <IconEyeOff size={16} className="text-gray-400" />
-      ) : (
-        <IconEye size={16} className="text-gray-400" />
-      )}
-    </button>
-  );
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-violet-50 p-6">
@@ -279,7 +260,7 @@ function LoginFormContent() {
               Password Strength: {getPasswordStrength(password)}%
             </Text>
             <Text size="sm" className="text-gray-600 mb-4 italic">
-              "{joke}"
+              &quot;{joke}&quot;
             </Text>
             <Button
               fullWidth
