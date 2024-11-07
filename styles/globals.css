@@ -2,20 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply antialiased text-gray-900 bg-violet-50;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Input Styles */
+.mantine-TextInput-input,
+.mantine-PasswordInput-input {
+  @apply h-9 bg-white border border-gray-200 
+         focus:border-violet-500 focus:ring-0
+         transition-colors;
+}
+
+.mantine-TextInput-wrapper,
+.mantine-PasswordInput-wrapper {
+  @apply h-9;
+}
+
+.mantine-TextInput-input,
+.mantine-PasswordInput-innerInput {
+  @apply h-9 bg-transparent pl-3;
+}
+
+/* Remove box shadow from Paper */
+.mantine-Paper-root {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Button height */
+.mantine-Button-root {
+  @apply h-9 text-sm font-medium;
+}
+
+/* Icon positioning */
+.mantine-TextInput-section,
+.mantine-PasswordInput-section {
+  @apply flex items-center justify-center px-3;
 }
